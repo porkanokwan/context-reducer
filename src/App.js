@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import {Route, Switch} from 'react-router-dom'
+import { Home } from './component/home';
+import Context, {Context2} from './context';
+import Reducer from './reducer(ex)';
 
+// ถ้าอยากให้มี state ใช้ useState
 function App() {
+  const [state, setState] = useState([{content: "Hi, guys"}])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context2.Provider value={{state, setState}}>
+      <Switch>
+        <Route exact path="/"><Home/></Route>
+        <Route path="/re"><Reducer/></Route>
+      </Switch>
+
+      {/* <Home/> */}
+    </Context2.Provider>
   );
+
+  // return(
+  //   <Context.Provider value="Hello world">
+  //     <Home/>
+  //   </Context.Provider>
+  // )
+  
 }
 
 export default App;
